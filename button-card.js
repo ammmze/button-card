@@ -1,4 +1,4 @@
-var LitElement = LitElement || Object.getPrototypeOf(customElements.get("hui-error-entity-row"));
+var LitElement = LitElement || Object.getPrototypeOf(customElements.get("hui-generic-entity-row"));
 var html = LitElement.prototype.html;
 
 class ButtonCard extends LitElement {
@@ -107,8 +107,12 @@ class ButtonCard extends LitElement {
     }
     paper-button {
       display: flex;
+      flex-direction: column;
       margin: auto;
       text-align: center;
+      align-items: center;
+      text-transform: uppercase;
+      padding: 1em;
     }
     </style>
     <ha-card style="color: ${fontColor};">
@@ -133,8 +137,12 @@ class ButtonCard extends LitElement {
     }
     paper-button {
       display: flex;
+      flex-direction: column;
       margin: auto;
       text-align: center;
+      align-items: center;
+      text-transform: uppercase;
+      padding: 1em;
     }
     </style>
     <ha-card style="color: ${fontColor};" @tap="${ev => this._toggle(state, config)}">
@@ -160,8 +168,12 @@ class ButtonCard extends LitElement {
     }
     paper-button {
       display: flex;
+      flex-direction: column;
       margin: auto;
       text-align: center;
+      align-items: center;
+      text-transform: uppercase;
+      padding: 1em;
     }
     </style>
     <ha-card @tap="${ev => this._toggle(state, config)}">
@@ -237,3 +249,4 @@ class ButtonCard extends LitElement {
 }
 
 customElements.define('button-card', ButtonCard);
+
