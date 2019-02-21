@@ -113,6 +113,7 @@ class ButtonCard extends LitElement {
       align-items: center;
       text-transform: uppercase;
       padding: 1em;
+      cursor: pointer;
     }
     </style>
     <ha-card style="color: ${fontColor};">
@@ -143,6 +144,7 @@ class ButtonCard extends LitElement {
       align-items: center;
       text-transform: uppercase;
       padding: 1em;
+      cursor: pointer;
     }
     </style>
     <ha-card style="color: ${fontColor};" @tap="${ev => this._toggle(state, config)}">
@@ -174,6 +176,7 @@ class ButtonCard extends LitElement {
       align-items: center;
       text-transform: uppercase;
       padding: 1em;
+      cursor: pointer;
     }
     </style>
     <ha-card @tap="${ev => this._toggle(state, config)}">
