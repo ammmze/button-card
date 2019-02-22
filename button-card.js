@@ -1,5 +1,6 @@
 var LitElement = LitElement || Object.getPrototypeOf(customElements.get("home-assistant-main"));
 var html = LitElement.prototype.html;
+var css = LitElement.prototype.css;
 
 class ButtonCard extends LitElement {
   static get properties() {
@@ -7,6 +8,38 @@ class ButtonCard extends LitElement {
       hass: Object,
       config: Object,
     };
+  }
+
+  static get styles() {
+    return css`
+      paper-button {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        text-align: center;
+        align-items: center;
+        text-transform: uppercase;
+        padding: 0.75em 0.25em ;
+        cursor: pointer;
+        line-height: 1.5em;
+      }
+      paper-button div {
+        width: 100%;
+      }
+      .button-card-icon {
+        position: relative;
+      }
+      .button-card-icon > div {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      .button-card-icon ha-icon {
+        height: 100%;
+      }
+    `
   }
 
   render() {
@@ -99,27 +132,11 @@ class ButtonCard extends LitElement {
   labelCardColoredHtml(state, config) {
     const color = this.buildCssColorAttribute(state, config);
     const fontColor = this.getFontColorBasedOnBackgroundColor(color);
-    const iconSize = config.size.endsWith('%') ? config.size.replace('%', 'px') : config.size;
     return html`
-    <style>
-    paper-button {
-      display: flex;
-      flex-direction: column;
-      margin: auto;
-      text-align: center;
-      align-items: center;
-      text-transform: uppercase;
-      padding: 1em;
-      cursor: pointer;
-    }
-    paper-button div {
-      width: 100%;
-    }
-    </style>
     <ha-card style="color: ${fontColor};">
       <paper-button noink style="background-color: ${color}; ${config.card_style}">
       <div>
-        ${config.icon ? html`<div><ha-icon style="width: ${iconSize}; height: ${iconSize};" icon="${config.icon}"></ha-icon></div>` : ''}
+        ${config.icon ? html`<div class="button-card-icon"><div><ha-icon style="width: ${config.size};" icon="${config.icon}"></ha-icon><div style="padding-top: ${config.size}" /><div></div></div>` : ''}
         ${config.name ? html`<span>${config.name}</span>` : ''}
        </div>
       </paper-button>
@@ -130,27 +147,11 @@ class ButtonCard extends LitElement {
   cardColoredHtml(state, config) {
     const color = this.buildCssColorAttribute(state, config);
     const fontColor = this.getFontColorBasedOnBackgroundColor(color);
-    const iconSize = config.size.endsWith('%') ? config.size.replace('%', 'px') : config.size;
     return html`
-    <style>
-    paper-button {
-      display: flex;
-      flex-direction: column;
-      margin: auto;
-      text-align: center;
-      align-items: center;
-      text-transform: uppercase;
-      padding: 1em;
-      cursor: pointer;
-    }
-    paper-button div {
-      width: 100%;
-    }
-    </style>
     <ha-card style="color: ${fontColor};" @tap="${ev => this._toggle(state, config)}">
       <paper-button style="background-color: ${color}; ${config.card_style}">
       <div>
-        ${config.icon ? html`<div><ha-icon style="width: ${iconSize}; height: ${iconSize};" icon="${config.icon}"></ha-icon></div>` : ''}
+        ${config.icon ? html`<div class="button-card-icon"><ha-icon style="width: ${config.size};" icon="${config.icon}"></ha-icon><div style="padding-top: ${config.size}" /><div></div></div>` : ''}
         ${config.name ? html`<span>${config.name}</span>` : ''}
         ${config.show_state ? html`<span>${state.state} ${state.attributes.unit_of_measurement ? state.attributes.unit_of_measurement : ''}</span>` : ''}
        </div>
@@ -162,27 +163,11 @@ class ButtonCard extends LitElement {
   iconColoredHtml(state, config) {
     const color = this.buildCssColorAttribute(state, config);
     const icon = this.buildIcon(state, config);
-    const iconSize = config.size.endsWith('%') ? config.size.replace('%', 'px') : config.size;
     return html`
-    <style>
-    paper-button {
-      display: flex;
-      flex-direction: column;
-      margin: auto;
-      text-align: center;
-      align-items: center;
-      text-transform: uppercase;
-      padding: 1em;
-      cursor: pointer;
-    }
-    paper-button div {
-      width: 100%;
-    }
-    </style>
     <ha-card @tap="${ev => this._toggle(state, config)}">
       <paper-button style="${config.card_style}">
       <div>
-        ${config.icon ? html`<ha-icon style="color:<div> ${color}; width: ${iconSize}; height: ${iconSize};" icon="${icon}"></ha-icon></div>` : ''}
+        ${config.icon ? html`<div class="button-card-icon"><div><ha-icon style="color: ${color}; width: ${config.size};" icon="${icon}"></ha-icon><div style="padding-top: ${config.size}" /><div></div></div>` : ''}
         ${config.name ? html`<div>${config.name}</div>` : ''}
         ${config.show_state ? html`<div>${state.state} ${state.attributes.unit_of_measurement ? state.attributes.unit_of_measurement : ''}</div>` : ''}
       </div>
