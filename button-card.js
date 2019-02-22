@@ -30,27 +30,16 @@ class ButtonCard extends LitElement {
 
   static get styles() {
     return css`
+      ha-icon {
+        display: flex;
+        margin: auto;
+      }
       button-card-button {
         display: flex;
-        flex-direction: column;
+        margin: auto;
+        text-align: center;
       }
-      button-card-button div {
-        width: 100%;
-      }
-      .button-card-icon {
-        position: relative;
-      }
-      .button-card-icon > div {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
-      .button-card-icon ha-icon {
-        height: 100%;
-      }
-    `
+    `;
   }
 
   render() {
@@ -147,7 +136,7 @@ class ButtonCard extends LitElement {
     <ha-card style="color: ${fontColor};">
       <button-card-button noink style="background-color: ${color}; ${config.card_style}">
       <div>
-        ${config.icon ? html`<div class="button-card-icon"><div><ha-icon style="width: ${config.size};" icon="${config.icon}"></ha-icon><div style="padding-top: ${config.size}" /><div></div></div>` : ''}
+        ${config.icon ? html`<ha-icon style="width: ${config.size}; height: ${config.size};" icon="${config.icon}"></ha-icon>` : ''}
         ${config.name ? html`<span>${config.name}</span>` : ''}
        </div>
       </button-card-button>
@@ -162,7 +151,7 @@ class ButtonCard extends LitElement {
     <ha-card style="color: ${fontColor};" @tap="${ev => this._toggle(state, config)}">
       <button-card-button style="background-color: ${color}; ${config.card_style}">
       <div>
-        ${config.icon ? html`<div class="button-card-icon"><ha-icon style="width: ${config.size};" icon="${config.icon}"></ha-icon><div style="padding-top: ${config.size}" /><div></div></div>` : ''}
+        ${config.icon ? html`<ha-icon style="width: ${config.size}; height: ${config.size};" icon="${config.icon}"></ha-icon>` : ''}
         ${config.name ? html`<span>${config.name}</span>` : ''}
         ${config.show_state ? html`<span>${state.state} ${state.attributes.unit_of_measurement ? state.attributes.unit_of_measurement : ''}</span>` : ''}
        </div>
@@ -178,7 +167,7 @@ class ButtonCard extends LitElement {
     <ha-card @tap="${ev => this._toggle(state, config)}">
       <button-card-button style="${config.card_style}">
       <div>
-        ${config.icon ? html`<div class="button-card-icon"><div><ha-icon style="color: ${color}; width: ${config.size};" icon="${icon}"></ha-icon><div style="padding-top: ${config.size}" /><div></div></div>` : ''}
+        ${config.icon ? html`<ha-icon style="color: ${color}; width: ${config.size}; height: ${config.size};" icon="${icon}"></ha-icon>` : ''}
         ${config.name ? html`<div>${config.name}</div>` : ''}
         ${config.show_state ? html`<div>${state.state} ${state.attributes.unit_of_measurement ? state.attributes.unit_of_measurement : ''}</div>` : ''}
       </div>
@@ -248,4 +237,3 @@ class ButtonCard extends LitElement {
 }
 
 customElements.define('button-card', ButtonCard);
-
