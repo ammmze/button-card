@@ -2,6 +2,24 @@ var LitElement = LitElement || Object.getPrototypeOf(customElements.get("home-as
 var html = LitElement.prototype.html;
 var css = LitElement.prototype.css;
 
+((ButtonBase) => {
+  customElements.define(
+    'button-card-button',
+    class extends ButtonBase {
+      static get styles() {
+        return css`
+          ${ButtonBase.styles}
+          .mdc-button {
+            height: auto;
+            padding: 8px;
+            color: inherit !important;
+          }
+        `
+      }
+    },
+  );
+})(customElements.get('mwc-button') || customElements.get('paper-button'))
+
 class ButtonCard extends LitElement {
   static get properties() {
     return {
@@ -12,18 +30,11 @@ class ButtonCard extends LitElement {
 
   static get styles() {
     return css`
-      paper-button {
+      button-card-button {
         display: flex;
         flex-direction: column;
-        margin: auto;
-        text-align: center;
-        align-items: center;
-        text-transform: uppercase;
-        padding: 0.75em 0.25em ;
-        cursor: pointer;
-        line-height: 1.5em;
       }
-      paper-button div {
+      button-card-button div {
         width: 100%;
       }
       .button-card-icon {
@@ -134,12 +145,12 @@ class ButtonCard extends LitElement {
     const fontColor = this.getFontColorBasedOnBackgroundColor(color);
     return html`
     <ha-card style="color: ${fontColor};">
-      <paper-button noink style="background-color: ${color}; ${config.card_style}">
+      <button-card-button noink style="background-color: ${color}; ${config.card_style}">
       <div>
         ${config.icon ? html`<div class="button-card-icon"><div><ha-icon style="width: ${config.size};" icon="${config.icon}"></ha-icon><div style="padding-top: ${config.size}" /><div></div></div>` : ''}
         ${config.name ? html`<span>${config.name}</span>` : ''}
        </div>
-      </paper-button>
+      </button-card-button>
     </ha-card>
     `;
   }
@@ -149,13 +160,13 @@ class ButtonCard extends LitElement {
     const fontColor = this.getFontColorBasedOnBackgroundColor(color);
     return html`
     <ha-card style="color: ${fontColor};" @tap="${ev => this._toggle(state, config)}">
-      <paper-button style="background-color: ${color}; ${config.card_style}">
+      <button-card-button style="background-color: ${color}; ${config.card_style}">
       <div>
         ${config.icon ? html`<div class="button-card-icon"><ha-icon style="width: ${config.size};" icon="${config.icon}"></ha-icon><div style="padding-top: ${config.size}" /><div></div></div>` : ''}
         ${config.name ? html`<span>${config.name}</span>` : ''}
         ${config.show_state ? html`<span>${state.state} ${state.attributes.unit_of_measurement ? state.attributes.unit_of_measurement : ''}</span>` : ''}
        </div>
-      </paper-button>
+      </button-card-button>
     </ha-card>
     `;
   }
@@ -165,13 +176,13 @@ class ButtonCard extends LitElement {
     const icon = this.buildIcon(state, config);
     return html`
     <ha-card @tap="${ev => this._toggle(state, config)}">
-      <paper-button style="${config.card_style}">
+      <button-card-button style="${config.card_style}">
       <div>
         ${config.icon ? html`<div class="button-card-icon"><div><ha-icon style="color: ${color}; width: ${config.size};" icon="${icon}"></ha-icon><div style="padding-top: ${config.size}" /><div></div></div>` : ''}
         ${config.name ? html`<div>${config.name}</div>` : ''}
         ${config.show_state ? html`<div>${state.state} ${state.attributes.unit_of_measurement ? state.attributes.unit_of_measurement : ''}</div>` : ''}
       </div>
-      </paper-button>
+      </button-card-button>
     </ha-card>
     `;
   }
